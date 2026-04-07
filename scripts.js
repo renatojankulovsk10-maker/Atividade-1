@@ -1,29 +1,37 @@
-
 const links = document.querySelectorAll('.menu a');
-
 
 links.forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
 
-  
     const sectionId = link.getAttribute('data-section');
     const section = document.getElementById(sectionId);
 
+    
+    const isVisible = !section.classList.contains('oculto');
 
+    
+    if (isVisible) {
+      section.classList.add('oculto');
+      const foto = document.querySelector('.foto-central');
+      if (foto) {
+        foto.style.display = 'block';
+      }
+      return; 
+    }
+
+    
     document.querySelectorAll('.conteudo').forEach(sec => {
       sec.classList.add('oculto');
     });
 
-  
     const foto = document.querySelector('.foto-central');
     if (foto) {
       foto.style.display = 'none';
     }
 
+    
     section.classList.remove('oculto');
-
-   
     section.style.opacity = 0;
     setTimeout(() => {
       section.style.opacity = 1;
@@ -32,30 +40,6 @@ links.forEach(link => {
 });
 
 
-function mostrarSecao(id) {
-  const secoes = document.querySelectorAll('.conteudo');
-  secoes.forEach(sec => sec.style.display = 'none');
-
- 
-  const foto = document.querySelector('.foto-central');
-  if (foto) {
-    foto.style.display = 'none';
-  }
-
-  const secao = document.getElementById(id);
-  secao.style.display = 'block';
-}
-function voltarInicio() {
- 
-  const secoes = document.querySelectorAll('.conteudo');
-  secoes.forEach(sec => sec.style.display = 'none');
-
- 
-  const foto = document.querySelector('.foto-central');
-  if (foto) {
-    foto.style.display = 'block';
-  }
-}
 const projetos = [
   {
     titulo: "Meu Projeto - 1",
@@ -67,6 +51,7 @@ const projetos = [
     descricao: "Site de estudos da aula",
     link: "https://github.com/renatojankulovsk10-maker/SITE-ESTUDOS"
   }
+
 ];
 
 
@@ -87,5 +72,6 @@ function renderizarProjetos() {
     container.appendChild(card);
   });
 }
+
 
 document.addEventListener("DOMContentLoaded", renderizarProjetos);
